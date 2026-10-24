@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complex Number Transformation Laboratory</title>
+
+<style>
+:root {
+  --blue: #2563eb;
+  --dark: #0f172a;
+  --background: #f1f5f9;
+  --text: #334155;
+  --border: #e2e8f0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--background);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+header {
+  background: linear-gradient(120deg, #0f172a, #1d4ed8);
+  color: white;
+  text-align: center;
+  padding: 55px 20px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: clamp(26px, 5vw, 42px);
+}
+
+header p {
+  color: #dbeafe;
+}
+
+nav {
+  background: #111827;
+  padding: 14px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  padding: 6px;
+}
+
+nav a:hover {
+  color: #93c5fd;
+}
+
+main {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+section {
+  margin-bottom: 45px;
+  scroll-margin-top: 90px;
+}
+
+h2 {
+  color: var(--dark);
+  border-bottom: 3px solid var(--blue);
+  padding-bottom: 10px;
+}
+
+h3 {
+  color: #1e40af;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 22px;
+  margin: 18px 0;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin: 15px 0 5px;
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--blue);
+}
+
+input[type="file"],
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+}
+
+input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+button {
+  background: var(--blue);
+  color: white;
+  border: none;
+  padding: 11px 15px;
+  margin: 5px 4px 5px 0;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+button.secondary {
+  background: #475569;
+}
+
+button.green {
+  background: #16a34a;
+}
+
+.value {
+  color: var(--blue);
+  font-weight: bold;
+}
+
+.canvas-box {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.formula {
+  background: #eff6ff;
+  border-left: 5px solid var(--blue);
+  padding: 15px;
+  margin: 15px 0;
+  font-family: monospace;
+  font-size: 16px;
+  overflow-x: auto;
+}
+
+.math-result {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  padding: 14px;
+  border-radius: 8px;
+  margin: 10px 0;
+  overflow-wrap: anywhere;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat strong {
+  display: block;
+  font-size: 24px;
+  color: var(--blue);
+}
+
+.stat span {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.small {
+  color: #64748b;
+  font-size: 13px;
+}
+
+pre {
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 20px;
+  border-radius: 8px;
+  overflow-x: auto;
+  max-height: 600px;
+  font-size: 13px;
+}
+
+.code-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.code-buttons button {
+  margin: 0;
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  background: var(--dark);
+  color: white;
+}
+
+@media(max-width: 850px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  main {
+    padding: 12px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Complex Number Transformation Laboratory</h1>
+  <p>
+    Interactive Image Rotation, Scaling, and Translation
+    Using Complex Numbers
+  </p>
+  <p>Mathematics Portfolio Project</p>
+</header>
+
+<nav>
+  <a href="#home">Home</a>
+  <a href="#laboratory">Laboratory</a>
+  <a href="#mathematics">Mathematics</a>
+  <a href="#experiments">Experiments</a>
+  <a href="#source">Source Code</a>
+  <a href="#conclusion">Conclusion</a>
+</nav>
+
+<main>
+
+<section id="home">
+<h2>1. Project Overview</h2>
+
+<div class="card">
+<h3>Introduction</h3>
+
+<p>
+Complex numbers are widely used in mathematics,
+physics, engineering, and computer graphics.
+</p>
+
+<p>
+In two-dimensional computer graphics, every point
+can be represented by a complex number.
+Multiplication and addition can then be used
+to rotate, scale, and translate objects.
+</p>
+
+<h3>Research Question</h3>
+
+<p>
+How can complex-number multiplication and addition
+be used to perform geometric transformations
+on images and two-dimensional objects?
+</p>
+
+<h3>Objectives</h3>
+
+<ul>
+<li>Represent points as complex numbers.</li>
+<li>Rotate objects using Euler's formula.</li>
+<li>Scale objects using complex multiplication.</li>
+<li>Translate objects using complex addition.</li>
+<li>Combine transformations mathematically.</li>
+<li>Visualize transformations interactively.</li>
+</ul>
+</div>
+</section>
+
+<section id="laboratory">
+<h2>2. Interactive Transformation Laboratory</h2>
+
+<p>
+Upload an image or select a geometric shape.
+Use the controls to rotate, scale, and translate it.
+</p>
+
+<div class="layout">
+
+<div class="card">
+
+<h3>Object Selection</h3>
+
+<label for="shape">Choose Object</label>
+
+<select id="shape">
+  <option value="square">Square</option>
+  <option value="triangle">Triangle</option>
+  <option value="arrow">Arrow</option>
+  <option value="star">Star</option>
+  <option value="image">Uploaded Image</option>
+</select>
+
+<label for="upload">Upload an Image</label>
+
+<input
+  type="file"
+  id="upload"
+  accept="image/png,image/jpeg,image/webp"
+>
+
+<p class="small">
+Images are processed locally in your browser.
+</p>
+
+<hr>
+
+<h3>Transformation Controls</h3>
+
+<label>
+Rotation:
+<span class="value" id="angleValue">0°</span>
+</label>
+
+<input
+  type="range"
+  id="angle"
+  min="-360"
+  max="360"
+  value="0"
+  step="1"
+>
+
+<label>
+Scale:
+<span class="value" id="scaleValue">1.00</span>
+</label>
+
+<input
+  type="range"
+  id="scale"
+  min="0.1"
+  max="3"
+  value="1"
+  step="0.05"
+>
+
+<label>
+Horizontal Translation:
+<span class="value" id="txValue">0</span>
+</label>
+
+<input
+  type="range"
+  id="tx"
+  min="-8"
+  max="8"
+  value="0"
+  step="0.1"
+>
+
+<label>
+Vertical Translation:
+<span class="value" id="tyValue">0</span>
+</label>
+
+<input
+  type="range"
+  id="ty"
+  min="-6"
+  max="6"
+  value="0"
+  step="0.1"
+>
+
+<hr>
+
+<h3>Display Settings</h3>
+
+<label>
+<input type="checkbox" id="grid" checked>
+Show Complex Plane
+</label>
+
+<label>
+<input type="checkbox" id="original" checked>
+Show Original Object
+</label>
+
+<label>
+<input type="checkbox" id="points" checked>
+Show Reference Point
+</label>
+
+<hr>
+
+<button onclick="resetTransformation()">Reset</button>
+
+<button onclick="rotate90()">Rotate 90°</button>
+
+<button onclick="rotate180()">Rotate 180°</button>
+
+<button
+  class="green"
+  id="animateButton"
+  onclick="toggleAnimation()"
+>
+Start Animation
+</button>
+
+<button
+  class="secondary"
+  onclick="downloadImage()"
+>
+Download PNG
+</button>
+
+<p id="uploadStatus" class="small"></p>
+
+</div>
+
+<div>
+
+<div class="card">
+<h3>Live Complex Plane</h3>
+
+<div class="canvas-box">
+<canvas
+  id="canvas"
+  width="900"
+  height="650"
+></canvas>
+</div>
+
+<p class="small">
+Blue: transformed object.
+Gray: original object.
+Red: reference point z = 3 + 4i.
+</p>
+</div>
+
+<div class="card">
+<h3>Live Mathematical Calculations</h3>
+
+<div class="math-result">
+<strong>Complex Multiplier</strong>
+<p id="multiplier"></p>
+</div>
+
+<div class="math-result">
+<strong>Transformation Formula</strong>
+<p id="formula"></p>
+</div>
+
+<div class="math-result">
+<strong>Reference Point Calculation</strong>
+<p id="pointCalculation"></p>
+</div>
+
+<div class="grid">
+
+<div class="card stat">
+<strong id="modulus">1.00</strong>
+<span>Multiplier Modulus</span>
+</div>
+
+<div class="card stat">
+<strong id="argument">0°</strong>
+<span>Multiplier Argument</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+</section>
+
+<section id="mathematics">
+<h2>3. Mathematical Explanation</h2>
+
+<div class="card">
+
+<h3>3.1 Complex Representation</h3>
+
+<p>
+Every point (x, y) on the plane can be represented as:
+</p>
+
+<div class="formula">z = x + iy</div>
+
+<p>
+The real component represents the horizontal coordinate.
+The imaginary component represents the vertical coordinate.
+</p>
+
+<h3>3.2 Rotation</h3>
+
+<p>
+To rotate a point counterclockwise by angle θ:
+</p>
+
+<div class="formula">
+z' = z(cos θ + i sin θ)
+</div>
+
+<p>
+Using Euler's formula:
+</p>
+
+<div class="formula">
+e^(iθ) = cos θ + i sin θ
+</div>
+
+<p>Therefore:</p>
+
+<div class="formula">z' = ze^(iθ)</div>
+
+<h3>3.3 Scaling</h3>
+
+<p>
+Multiplication by a positive real number r
+changes the distance from the origin.
+</p>
+
+<div class="formula">z' = rz</div>
+
+<p>
+For example, r = 2 doubles the size,
+while r = 0.5 reduces it by half.
+</p>
+
+<h3>3.4 Translation</h3>
+
+<p>
+Adding a complex number moves a point
+horizontally and vertically.
+</p>
+
+<div class="formula">
+z' = z + (a + bi)
+</div>
+
+<h3>3.5 Combined Transformation</h3>
+
+<div class="formula">
+z' = r(cos θ + i sin θ)z + (a + bi)
+</div>
+
+<p>
+This is the main mathematical equation
+used by the simulator.
+</p>
+
+<h3>3.6 Cartesian Form</h3>
+
+<p>
+Substituting z = x + iy gives:
+</p>
+
+<div class="formula">
+x' = r(x cos θ − y sin θ) + a
+</div>
+
+<div class="formula">
+y' = r(x sin θ + y cos θ) + b
+</div>
+
+<p>
+These equations determine the new position
+of each point after the transformation.
+</p>
+
+</div>
+</section>
+
+<section id="experiments">
+<h2>4. Mathematical Experiments</h2>
+
+<div class="card">
+
+<h3>Experiment 1: Rotation by 90°</h3>
+
+<div class="formula">
+z = 3 + 4i
+</div>
+
+<div class="formula">
+z' = i(3 + 4i) = −4 + 3i
+</div>
+
+<button onclick="runExample(90,1,0,0)">
+Try Rotation
+</button>
+
+<h3>Experiment 2: Scaling</h3>
+
+<div class="formula">
+z' = 2(3 + 4i) = 6 + 8i
+</div>
+
+<button onclick="runExample(0,2,0,0)">
+Try Scaling
+</button>
+
+<h3>Experiment 3: Translation</h3>
+
+<div class="formula">
+z' = (3 + 4i) + (2 + 3i) = 5 + 7i
+</div>
+
+<button onclick="runExample(0,1,2,3)">
+Try Translation
+</button>
+
+<h3>Experiment 4: Combined Transformation</h3>
+
+<div class="formula">
+z' = 2i(3 + 4i) + (1 + 2i)
+</div>
+
+<div class="formula">
+z' = −7 + 8i
+</div>
+
+<button onclick="runExample(90,2,1,2)">
+Try Combined Transformation
+</button>
+
+</div>
+</section>
+
+<section id="source">
+<h2>5. Python Source Code</h2>
+
+<div class="card">
+
+<p>
+This section displays the original Python files
+from the GitHub repository.
+</p>
+
+<div class="code-buttons">
+
+<button onclick="loadSource('complex_transform.py')">
+complex_transform.py
+</button>
+
+<button onclick="loadSource('demo.py')">
+demo.py
+</button>
+
+<button onclick="loadSource('image_transform.py')">
+image_transform.py
+</button>
+
+<button onclick="loadSource('test_transform.py')">
+test_transform.py
+</button>
+
+<button onclick="loadSource('requirements.txt')">
+requirements.txt
+</button>
+
+<button onclick="loadSource('README.md')">
+README.md
+</button>
+
+</div>
+
+<h3 id="sourceTitle">complex_transform.py</h3>
+
+<p id="sourceStatus" class="small"></p>
+
+<pre><code id="sourceDisplay"></code></pre>
+
+<button onclick="copySource()">Copy Code</button>
+
+<a
+  id="sourceLink"
+  href="#"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+Open Source File
+</a>
+
+</div>
+</section>
+
+<section id="conclusion">
+<h2>6. Results and Conclusion</h2>
+
+<div class="card">
+
+<h3>Key Findings</h3>
+
+<p>
+Complex multiplication can simultaneously
+rotate and scale points on a two-dimensional plane.
+</p>
+
+<p>
+Complex addition translates points without
+changing their shape or orientation.
+</p>
+
+<p>
+By combining these operations, an object
+can be transformed using a single expression:
+</p>
+
+<div class="formula">
+z' = r e^(iθ)z + (a + bi)
+</div>
+
+<h3>Real-World Applications</h3>
+
+<ul>
+<li>Computer graphics</li>
+<li>Image processing</li>
+<li>Two-dimensional animation</li>
+<li>Geometric modeling</li>
+<li>Robotics</li>
+</ul>
+
+<h3>Limitations</h3>
+
+<ul>
+<li>The simulator operates in two dimensions.</li>
+<li>Scaling is uniform in every direction.</li>
+<li>Objects rotate around their local center.</li>
+<li>Parts extending outside the canvas are clipped.</li>
+<li>The website uses JavaScript for live transformations, not Python execution.</li>
+</ul>
+
+<h3>Conclusion</h3>
+
+<p>
+This project demonstrates how complex-number
+operations can be used to perform real geometric
+transformations on images and shapes.
+</p>
+
+<p>
+The interactive laboratory connects algebraic
+calculations with their geometric effects,
+making complex numbers easier to visualize.
+</p>
+
+</div>
+</section>
+
+</main>
+
+<footer>
+<p><strong>Complex Number Transformation Laboratory</strong></p>
+<p>Mathematics Portfolio Project</p>
+<p>Built with HTML, CSS, JavaScript, and Complex Numbers</p>
+</footer>
+
+<script>
+
+/* =========================================
+   CANVAS SETUP
+========================================= */
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+const W = canvas.width;
+const H = canvas.height;
+
+const CENTER_X = W / 2;
+const CENTER_Y = H / 2;
+const UNIT = 40;
+
+const angleInput = document.getElementById("angle");
+const scaleInput = document.getElementById("scale");
+const txInput = document.getElementById("tx");
+const tyInput = document.getElementById("ty");
+
+let uploadedImage = null;
+let animationRunning = false;
+let animationFrame = null;
+let previousAnimationTime = null;
+
+
+/* =========================================
+   COMPLEX NUMBER OPERATIONS
+========================================= */
+
+function complexMultiply(z1, z2) {
+  return {
+    re: z1.re * z2.re - z1.im * z2.im,
+    im: z1.re * z2.im + z1.im * z2.re
+  };
+}
+
+function complexAdd(z1, z2) {
+  return {
+    re: z1.re + z2.re,
+    im: z1.im + z2.im
+  };
+}
+
+function complexTransform(z, angle, scale, tx, ty) {
+  const theta = angle * Math.PI / 180;
+
+  const multiplier = {
+    re: scale * Math.cos(theta),
+    im: scale * Math.sin(theta)
+  };
+
+  const translation = {
+    re: tx,
+    im: ty
+  };
+
+  return complexAdd(
+    complexMultiply(multiplier, z),
+    translation
+  );
+}
+
+
+/* =========================================
+   COORDINATE CONVERSION
+========================================= */
+
+function toScreen(z) {
+  return {
+    x: CENTER_X + z.re * UNIT,
+    y: CENTER_Y - z.im * UNIT
+  };
+}
+
+
+/* =========================================
+   DRAW COMPLEX PLANE
+========================================= */
+
+function drawGrid() {
+  if (!document.getElementById("grid").checked) {
+    return;
+  }
+
+  ctx.save();
+
+  ctx.strokeStyle = "#e2e8f0";
+  ctx.lineWidth = 1;
+
+  for (let x = CENTER_X % UNIT; x <= W; x += UNIT) {
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, H);
+    ctx.stroke();
+  }
+
+  for (let y = CENTER_Y % UNIT; y <= H; y += UNIT) {
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(W, y);
+    ctx.stroke();
+  }
+
+  ctx.strokeStyle = "#64748b";
+  ctx.lineWidth = 2;
+
+  ctx.beginPath();
+  ctx.moveTo(0, CENTER_Y);
+  ctx.lineTo(W, CENTER_Y);
+  ctx.moveTo(CENTER_X, 0);
+  ctx.lineTo(CENTER_X, H);
+  ctx.stroke();
+
+  ctx.fillStyle = "#475569";
+  ctx.font = "13px Arial";
+
+  for (let i = -10; i <= 10; i += 2) {
+    if (i === 0) continue;
+
+    const x = CENTER_X + i * UNIT;
+
+    if (x >= 0 && x <= W) {
+      ctx.fillText(String(i), x - 5, CENTER_Y + 18);
+    }
+  }
+
+  for (let i = -7; i <= 7; i += 2) {
+    if (i === 0) continue;
+
+    const y = CENTER_Y - i * UNIT;
+
+    if (y >= 0 && y <= H) {
+      ctx.fillText(String(i), CENTER_X + 8, y + 4);
+    }
+  }
+
+  ctx.fillText("Real", W - 45, CENTER_Y - 10);
+  ctx.fillText("Imaginary", CENTER_X + 10, 18);
+
+  ctx.restore();
+}
+
+
+/* =========================================
+   GEOMETRIC SHAPES
+========================================= */
+
+function drawShape(type) {
+  ctx.beginPath();
+
+  if (type === "square") {
+    ctx.rect(-65, -65, 130, 130);
+  }
+
+  else if (type === "triangle") {
+    ctx.moveTo(0, -90);
+    ctx.lineTo(85, 65);
+    ctx.lineTo(-85, 65);
+    ctx.closePath();
+  }
+
+  else if (type === "arrow") {
+    ctx.moveTo(-100, -25);
+    ctx.lineTo(25, -25);
+    ctx.lineTo(25, -60);
+    ctx.lineTo(105, 0);
+    ctx.lineTo(25, 60);
+    ctx.lineTo(25, 25);
+    ctx.lineTo(-100, 25);
+    ctx.closePath();
+  }
+
+  else if (type === "star") {
+    for (let i = 0; i < 10; i++) {
+      const radius = i % 2 === 0 ? 90 : 40;
+      const a = -Math.PI / 2 + i * Math.PI / 5;
+
+      const x = radius * Math.cos(a);
+      const y = radius * Math.sin(a);
+
+      if (i === 0) {
+        ctx.moveTo(x, y);
+      } else {
+        ctx.lineTo(x, y);
+      }
+    }
+
+    ctx.closePath();
+  }
+
+  ctx.fill();
+  ctx.stroke();
+}
+
+
+/* =========================================
+   DRAW TRANSFORMED OBJECT
+========================================= */
+
+function drawObject(angle, scale, tx, ty, original) {
+  const theta = angle * Math.PI / 180;
+
+  const a = scale * Math.cos(theta);
+  const b = scale * Math.sin(theta);
+
+  /*
+    Complex transformation:
+
+    z' = (a + bi)z + (tx + i ty)
+
+    Cartesian form:
+
+    x' = ax - by + tx
+    y' = bx + ay + ty
+
+    Canvas coordinates have downward-positive y,
+    so the corresponding canvas matrix is:
+
+    [ a   b ]
+    [-b   a ]
+  */
+
+  ctx.save();
+
+  ctx.setTransform(
+    a * UNIT,
+    -b * UNIT,
+    b * UNIT,
+    a * UNIT,
+    CENTER_X + tx * UNIT,
+    CENTER_Y - ty * UNIT
+  );
+
+  const type = document.getElementById("shape").value;
+
+  if (type === "image" && uploadedImage) {
+    const maxSize = 4;
+    const ratio = uploadedImage.width / uploadedImage.height;
+
+    let width;
+    let height;
+
+    if (ratio >= 1) {
+      width = maxSize;
+      height = maxSize / ratio;
+    } else {
+      height = maxSize;
+      width = maxSize * ratio;
+    }
+
+    ctx.globalAlpha = original ? 0.25 : 1;
+
+    ctx.drawImage(
+      uploadedImage,
+      -width / 2,
+      -height / 2,
+      width,
+      height
+    );
+  }
+
+  else {
+    ctx.scale(1 / UNIT, 1 / UNIT);
+
+    ctx.fillStyle = original
+      ? "rgba(148,163,184,0.25)"
+      : "rgba(37,99,235,0.35)";
+
+    ctx.strokeStyle = original
+      ? "#94a3b8"
+      : "#2563eb";
+
+    ctx.lineWidth = 3;
+
+    drawShape(type === "image" ? "square" : type);
+  }
+
+  ctx.restore();
+}
+
+
+/* =========================================
+   REFERENCE POINT
+========================================= */
+
+function drawReferencePoint(angle, scale, tx, ty) {
+  if (!document.getElementById("points").checked) {
+    return;
+  }
+
+  const z = { re: 3, im: 4 };
+
+  const transformed = complexTransform(
+    z, angle, scale, tx, ty
+  );
+
+  const p = toScreen(transformed);
+
+  ctx.save();
+
+  ctx.fillStyle = "#dc2626";
+  ctx.beginPath();
+  ctx.arc(p.x, p.y, 7, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.font = "bold 14px Arial";
+
+  ctx.fillText(
+    "z' = " + formatComplex(transformed),
+    p.x + 12,
+    p.y - 12
+  );
+
+  ctx.restore();
+}
+
+
+/* =========================================
+   COMPLEX NUMBER FORMATTING
+========================================= */
+
+function cleanNumber(n) {
+  return Math.abs(n) < 1e-7 ? 0 : n;
+}
+
+function formatComplex(z) {
+  const re = cleanNumber(z.re);
+  const im = cleanNumber(z.im);
+
+  return (
+    re.toFixed(2) +
+    (im >= 0 ? " + " : " - ") +
+    Math.abs(im).toFixed(2) +
+    "i"
+  );
+}
+
+
+/* =========================================
+   LIVE MATHEMATICAL CALCULATIONS
+========================================= */
+
+function updateMath(angle, scale, tx, ty) {
+  const theta = angle * Math.PI / 180;
+
+  const multiplier = {
+    re: scale * Math.cos(theta),
+    im: scale * Math.sin(theta)
+  };
+
+  const z = { re: 3, im: 4 };
+
+  const result = complexTransform(
+    z, angle, scale, tx, ty
+  );
+
+  document.getElementById("multiplier").textContent =
+    "w = " + formatComplex(multiplier);
+
+  document.getElementById("formula").textContent =
+    "z' = (" + formatComplex(multiplier) +
+    ")z + (" +
+    formatComplex({ re: tx, im: ty }) + ")";
+
+  document.getElementById("pointCalculation").textContent =
+    "For z = 3 + 4i, z' = " + formatComplex(result);
+
+  document.getElementById("modulus").textContent =
+    scale.toFixed(2);
+
+  document.getElementById("argument").textContent =
+    angle.toFixed(1) + "°";
+}
+
+
+/* =========================================
+   MAIN RENDER FUNCTION
+========================================= */
+
+function render() {
+  const angle = Number(angleInput.value);
+  const scale = Number(scaleInput.value);
+  const tx = Number(txInput.value);
+  const ty = Number(tyInput.value);
+
+  document.getElementById("angleValue").textContent =
+    angle.toFixed(1) + "°";
+
+  document.getElementById("scaleValue").textContent =
+    scale.toFixed(2);
+
+  document.getElementById("txValue").textContent =
+    tx.toFixed(1);
+
+  document.getElementById("tyValue").textContent =
+    ty.toFixed(1);
+
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.clearRect(0, 0, W, H);
+
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, W, H);
+
+  drawGrid();
+
+  if (document.getElementById("original").checked) {
+    drawObject(0, 1, 0, 0, true);
+  }
+
+  drawObject(angle, scale, tx, ty, false);
+
+  drawReferencePoint(angle, scale, tx, ty);
+
+  updateMath(angle, scale, tx, ty);
+}
+
+
+/* =========================================
+   CONTROL EVENTS
+========================================= */
+
+[
+  angleInput,
+  scaleInput,
+  txInput,
+  tyInput,
+  document.getElementById("shape"),
+  document.getElementById("grid"),
+  document.getElementById("original"),
+  document.getElementById("points")
+].forEach(element => {
+  element.addEventListener("input", render);
+});
+
+
+/* =========================================
+   IMAGE UPLOAD
+========================================= */
+
+document.getElementById("upload").addEventListener(
+  "change",
+  function(event) {
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      document.getElementById("uploadStatus").textContent =
+        "Please select a valid image.";
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+      const img = new Image();
+
+      img.onload = function() {
+        uploadedImage = img;
+
+        document.getElementById("shape").value = "image";
+
+        document.getElementById("uploadStatus").textContent =
+          "Image loaded successfully.";
+
+        render();
+      };
+
+      img.onerror = function() {
+        document.getElementById("uploadStatus").textContent =
+          "Unable to read the image.";
+      };
+
+      img.src = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+  }
+);
+
+
+/* =========================================
+   ANIMATION CONTROLS
+========================================= */
+
+function stopAnimation() {
+  animationRunning = false;
+  previousAnimationTime = null;
+
+  if (animationFrame !== null) {
+    cancelAnimationFrame(animationFrame);
+    animationFrame = null;
+  }
+
+  document.getElementById("animateButton").textContent =
+    "Start Animation";
+}
+
+function resetTransformation() {
+  stopAnimation();
+
+  angleInput.value = 0;
+  scaleInput.value = 1;
+  txInput.value = 0;
+  tyInput.value = 0;
+
+  render();
+}
+
+function rotate90() {
+  stopAnimation();
+  angleInput.value = 90;
+  render();
+}
+
+function rotate180() {
+  stopAnimation();
+  angleInput.value = 180;
+  render();
+}
+
+function runExample(angle, scale, tx, ty) {
+  stopAnimation();
+
+  angleInput.value = angle;
+  scaleInput.value = scale;
+  txInput.value = tx;
+  tyInput.value = ty;
+
+  render();
+
+  document.getElementById("laboratory").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+function animate(time) {
+  if (!animationRunning) return;
+
+  if (previousAnimationTime === null) {
+    previousAnimationTime = time;
+  }
+
+  const delta = Math.min(
+    time - previousAnimationTime,
+    100
+  );
+
+  previousAnimationTime = time;
+
+  let angle = Number(angleInput.value);
+  angle += delta * 0.045;
+
+  if (angle > 360) {
+    angle -= 720;
+  }
+
+  angleInput.value = angle;
+
+  render();
+
+  animationFrame = requestAnimationFrame(animate);
+}
+
+function toggleAnimation() {
+  if (animationRunning) {
+    stopAnimation();
+  } else {
+    animationRunning = true;
+    previousAnimationTime = null;
+
+    document.getElementById("animateButton").textContent =
+      "Stop Animation";
+
+    animationFrame = requestAnimationFrame(animate);
+  }
+}
+
+
+/* =========================================
+   DOWNLOAD TRANSFORMED IMAGE
+========================================= */
+
+function downloadImage() {
+  render();
+
+  const link = document.createElement("a");
+
+  link.download = "complex-transformation.png";
+  link.href = canvas.toDataURL("image/png");
+
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+}
+
+
+/* =========================================
+   SOURCE CODE VIEWER
+========================================= */
+
+const sourceFiles = [
+  "complex_transform.py",
+  "demo.py",
+  "image_transform.py",
+  "test_transform.py",
+  "requirements.txt",
+  "README.md"
+];
+
+let currentSource = "";
+
+async function loadSource(filename) {
+  if (!sourceFiles.includes(filename)) return;
+
+  const display = document.getElementById("sourceDisplay");
+  const status = document.getElementById("sourceStatus");
+  const title = document.getElementById("sourceTitle");
+  const link = document.getElementById("sourceLink");
+
+  title.textContent = filename;
+  display.textContent = "Loading...";
+  status.textContent = "Fetching source code...";
+
+  currentSource = "";
+
+  const fileURL = new URL(filename, document.baseURI);
+
+  link.href = fileURL.href;
+
+  try {
+    const response = await fetch(
+      fileURL.href,
+      { cache: "no-store" }
+    );
+
+    if (!response.ok) {
+      throw new Error("HTTP " + response.status);
+    }
+
+    const text = await response.text();
+
+    currentSource = text;
+    display.textContent = text;
+
+    status.textContent =
+      "Successfully loaded " + filename;
+
+  } catch (error) {
+    display.textContent =
+      "Unable to load this source file.";
+
+    status.textContent =
+      "Make sure " + filename +
+      " is in the same folder as index.html. " +
+      error.message;
+  }
+}
+
+async function copySource() {
+  if (!currentSource) {
+    alert("Load a source file first.");
+    return;
+  }
+
+  try {
+    await navigator.clipboard.writeText(currentSource);
+    alert("Source code copied!");
+  } catch (error) {
+    alert("Please select and copy the code manually.");
+  }
+}
+
+
+/* =========================================
+   INITIALIZE
+========================================= */
+
+render();
+loadSource("complex_transform.py");
+
+</script>
+
+</body>
+</html>
